@@ -24,7 +24,10 @@ import lombok.AllArgsConstructor;
 @Configuration
 @AllArgsConstructor
 public class KafkaConfig {
-  
+
+  private static final Integer PARTITION_COUNT = 1;
+  private static final Integer REPLICATION_COUNT = 1;
+
   @Value("${spring.kafka.bootstrap-servers}")
   private String bootstrapServers;
 
@@ -33,6 +36,15 @@ public class KafkaConfig {
   
   @Value("${spring.kafka.consumer.auto-offset-reset}")
   private String  autoOffsetReset;
+
+  @Value("${spring.kafka.topic.orchestrator}")
+  private String  orchestratorTopic;
+
+  @Value("${spring.kafka.topic.product-validation-success}")
+  private String productValidationSuccessTopic;
+
+  @Value("${spring.kafka.topic.product-validation-fail}")
+  private String  productValidationFailTopic;
 
   @Bean
   public ConsumerFactory<String, String> consumerFactory() {
@@ -69,6 +81,25 @@ public class KafkaConfig {
   @Bean
   private KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
     return new KafkaTemplate<>(producerFactory); 
+  }
+
+  private NewTopic buildTopic(String name) {
+    return TopicBuilder.name(name).replicas(REPLICATION_COUNT).partitions(PARTITION_COUNT).build();
+  }
+
+  @Bean
+  public NewTopic orchestratorTopic() {
+    return buildTopic(orchestratorTopic);
+  }
+
+  @Bean
+  public NewTopic productValidationSuccessTopic() {
+    return buildTopic(productValidationSuccessTopic);
+  }
+
+  @Bean
+  public NewTopic productValidationFailTopic() {
+    return buildTopic(productValidationFailTopic);
   }
 }
 

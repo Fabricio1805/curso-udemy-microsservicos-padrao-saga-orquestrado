@@ -1,4 +1,4 @@
-package br.com.microservices.orchestrated.orchestratorservice.infastructure.config.kafka.enums;
+package br.com.microservices.orchestrated.orchestratorservice.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
