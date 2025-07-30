@@ -1,4 +1,4 @@
 FROM gcr.io/distroless/java17
 COPY build/libs/*.jar app.jar
 EXPOSE 3000
-ENTRYPOINT ["app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

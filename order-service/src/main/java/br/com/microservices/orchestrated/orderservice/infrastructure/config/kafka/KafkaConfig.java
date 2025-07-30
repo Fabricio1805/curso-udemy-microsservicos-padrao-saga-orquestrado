@@ -19,11 +19,8 @@ import org.springframework.kafka.core.ProducerFactory;
 
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 
-import lombok.AllArgsConstructor;
-
 @EnableKafka
 @Configuration
-@AllArgsConstructor
 public class KafkaConfig {
   
   private static final Integer PARTITION_COUNT = 1;
@@ -79,7 +76,7 @@ public class KafkaConfig {
   }
 
   @Bean
-  private KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
+  public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
     return new KafkaTemplate<>(producerFactory); 
   }
 

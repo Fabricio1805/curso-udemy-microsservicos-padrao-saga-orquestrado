@@ -4,12 +4,14 @@ package br.com.microservices.orchestrated.productvalidationservice.infrastructur
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -18,11 +20,9 @@ import org.springframework.kafka.core.ProducerFactory;
 
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 
-import lombok.AllArgsConstructor;
 
 @EnableKafka
 @Configuration
-@AllArgsConstructor
 public class KafkaConfig {
 
   private static final Integer PARTITION_COUNT = 1;
@@ -79,7 +79,7 @@ public class KafkaConfig {
   }
 
   @Bean
-  private KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
+  public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
     return new KafkaTemplate<>(producerFactory); 
   }
 
