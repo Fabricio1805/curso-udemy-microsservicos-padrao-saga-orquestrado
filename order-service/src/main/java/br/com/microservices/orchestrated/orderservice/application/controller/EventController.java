@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.microservices.orchestrated.orderservice.application.dto.EventFiltersDTO;
@@ -18,7 +17,7 @@ import lombok.AllArgsConstructor;
 public class EventController {
   private final EventService eventService;
 
-  public EventDocument findByFilters(@RequestParam EventFiltersDTO filters) {
+  public EventDocument findByFilters(EventFiltersDTO filters) {
     return eventService.findByFilters(filters);
   }
   
