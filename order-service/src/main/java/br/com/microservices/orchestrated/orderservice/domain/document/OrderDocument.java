@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class OrderDocument {
   @Id
   private String id;
-  private List<OrderProductDocument> orderProductDocuments;
+  private List<OrderProduct> orderProducts;
   private LocalDateTime createdAt;
   private String transactionId;
   private BigDecimal totalAmount;

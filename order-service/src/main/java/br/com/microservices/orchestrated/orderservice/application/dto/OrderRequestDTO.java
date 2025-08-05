@@ -2,7 +2,7 @@ package br.com.microservices.orchestrated.orderservice.application.dto;
 
 import java.util.List;
 
-import br.com.microservices.orchestrated.orderservice.domain.document.OrderProductDocument;
+import br.com.microservices.orchestrated.orderservice.domain.document.OrderProduct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderRequestDTO {
-
-  private List<OrderProductDocument> products;
+  private List<OrderProduct> products;
 }

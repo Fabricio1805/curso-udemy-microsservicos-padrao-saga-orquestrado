@@ -25,6 +25,6 @@ public class EventDocument {
   private OrderDocument payload;
   private String source;
   private String status;
-  private List<HistoryDocument> eventHistory;
+  private List<History> eventHistories;
   private LocalDateTime createdAt;
 }

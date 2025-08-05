@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoryDocument {
+public class History {
   private String source;
   private String status;
   private LocalDateTime createdAt;

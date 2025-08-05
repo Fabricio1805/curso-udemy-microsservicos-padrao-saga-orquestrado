@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderProductDocument {
-  private ProductDocument productDocument;
-  private int quantity;
+public class Product {
+  private String code;
+  private Double unitValue;
 }
