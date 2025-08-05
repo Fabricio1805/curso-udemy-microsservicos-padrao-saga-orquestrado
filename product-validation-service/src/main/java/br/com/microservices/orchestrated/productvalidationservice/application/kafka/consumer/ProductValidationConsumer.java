@@ -3,6 +3,7 @@ package br.com.microservices.orchestrated.productvalidationservice.application.k
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import br.com.microservices.orchestrated.productvalidationservice.domain.service.ProductValidationService;
 import br.com.microservices.orchestrated.productvalidationservice.infrastructure.utils.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class ProductValidationConsumer {
   private final JsonUtil jsonUtil;
+  private final ProductValidationService productValidationService;
 
   @KafkaListener(
     groupId = "${spring.kafka.consumer.group-id}",
@@ -21,10 +23,10 @@ public class ProductValidationConsumer {
     log.info("Receiving success event {} from product-validation-success topic", payload);
 
     var event = jsonUtil.toEvent(payload);
-    log.info(event.toString());
+    productValidationService.validateExistingProducts(event);
   }
 
-    @KafkaListener(
+  @KafkaListener(
     groupId = "${spring.kafka.consumer.group-id}",
     topics = "${spring.kafka.topic.product-validation-fail}"
   )
@@ -32,6 +34,6 @@ public class ProductValidationConsumer {
     log.info("Receiving rollback event {} from product-validation-fail topic", payload);
 
     var event = jsonUtil.toEvent(payload);
-    log.info(event.toString());
+    productValidationService.rollbackEvent(event);
   }
 }

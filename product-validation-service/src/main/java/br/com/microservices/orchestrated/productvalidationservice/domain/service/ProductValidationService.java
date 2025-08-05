@@ -112,7 +112,27 @@ public class ProductValidationService {
   }
   
   private void handleFailCurrentNotExecuted(EventDTO event, String message) {
-    
+    event.setStatus(SagaStatusEnum.ROLLBACK_PENDING);
+    event.setSource(CURRENT_SOURCE);
+
+    addHistory(event, "Fail to validate products: ".concat(message));
+  }
+
+  public void rollbackEvent(EventDTO event) {
+    changeValidationToFail(event);
+    event.setStatus(SagaStatusEnum.FAIL);
+    event.setSource(CURRENT_SOURCE);
+
+    addHistory(event, "Rollback executed on product validation");
+
+    kafkaProducer.sendEvent(jsonUtil.toJson(event));   
+  }
+
+  public void changeValidationToFail(EventDTO event) {
+    validationRepository.findByOrderIdAndTransactionId(event.getPayload().getId(), event.getTransactionId()).ifPresentOrElse(validation -> {
+      validation.setSuccess(false);
+      validationRepository.save(validation);
+    }, () -> createValidation(event, false));
   }
 }
 
