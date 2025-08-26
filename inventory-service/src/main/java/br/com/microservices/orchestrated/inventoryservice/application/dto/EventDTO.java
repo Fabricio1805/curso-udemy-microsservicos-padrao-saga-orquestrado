@@ -1,6 +1,7 @@
 package br.com.microservices.orchestrated.inventoryservice.application.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.microservices.orchestrated.inventoryservice.domain.enums.SagaStatusEnum;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 @Data
 @Builder
@@ -22,4 +24,12 @@ public class EventDTO {
   private SagaStatusEnum status;
   private List<HistoryDTO> eventHistory;
   private LocalDateTime createdAt;
+
+  public void addToHistory(HistoryDTO history) {
+    if (ObjectUtils.isEmpty(eventHistory)) {
+      eventHistory = new ArrayList<>();
+    }
+
+    eventHistory.add(history);
+  }
 }

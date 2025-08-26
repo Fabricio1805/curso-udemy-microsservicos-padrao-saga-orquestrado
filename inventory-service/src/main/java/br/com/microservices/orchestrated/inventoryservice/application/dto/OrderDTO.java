@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderDTO {
   private String id;
-  private List<OrderProductDTO> orderProductDocuments;
+  private List<OrderProductDTO> orderProducts;
   private LocalDateTime createdAt;
   private String transactionId;
   private BigDecimal totalAmount;
